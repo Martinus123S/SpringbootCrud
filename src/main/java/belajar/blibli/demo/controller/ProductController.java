@@ -22,6 +22,11 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(productList,HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete-product/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable("id")String id){
+        return null;
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable("id") String id,@RequestBody Product newProduct){
         try {
