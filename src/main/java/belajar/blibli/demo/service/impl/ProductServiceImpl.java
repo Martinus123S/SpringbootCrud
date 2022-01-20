@@ -3,10 +3,17 @@ package belajar.blibli.demo.service.impl;
 
 import belajar.blibli.demo.model.Product;
 import belajar.blibli.demo.repository.ProductRepository;
+import belajar.blibli.demo.request.ProductRequest;
 import belajar.blibli.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +23,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    RedisTemplate<String,String> redisTemplate;
 
     @Override
     public void saveUser(Product product) {
@@ -23,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "product", key = "#id")
     public Optional<Product> getSingleProduct(String id) {
         Optional<Product> product = productRepository.findById(id);
         if(!product.isPresent()){
@@ -37,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(String id,Product newProduct) {
+    public Product update(String id, ProductRequest newProduct) {
         Optional<Product> singleProduct = getSingleProduct(id);
         if(singleProduct == null){
             return null;
