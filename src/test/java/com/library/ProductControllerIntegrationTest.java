@@ -1,4 +1,4 @@
-package belajar.blibli.demo;
+package com.library;
 
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ public class ProductControllerIntegrationTest {
 
   @Test
   public void checkValueOfRedis(){
-    assertTrue(true);
+
   }
 
 }
