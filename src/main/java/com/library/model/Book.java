@@ -21,8 +21,8 @@ public class Book implements Serializable{
 //    need description field
     private String bookId;
     private String title;
+    private String description;
     private int totalPages;
     private int quantity;
     private String writer;
-    private Date publish;
 }

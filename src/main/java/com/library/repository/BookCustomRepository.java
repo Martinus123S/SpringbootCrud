@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 public interface BookCustomRepository {
   Book findItemByBookId(String id);
   boolean deleteBookByBookId(String id);
-  Page<Book> findALlWithPaging(Pageable pageable);
+  Page<Book> findALlWithPaging(int page, int size);
 }
